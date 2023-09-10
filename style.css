@@ -1,0 +1,66 @@
+body
+{
+    font-family: sans-serif,Arial;
+    font-size: 15px;
+    background-color: rgb(238, 169, 78);
+}
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+.carousel{
+    margin: 1.2rem auto;
+}
+
+.carousel-control-prev{
+    left: -90px;
+}
+
+.carousel-control-next{
+    right: -90px;
+}
+
+.form-select-sm{
+    width: 300px;
+}
+
+.form-group{
+    width: 300px;
+}
+
+.container2{
+    margin: 0 auto;
+    text-align: center;
+}
+.label__data{
+    font-size: 1.5rem;
+    color: rgb(71, 120, 6);
+}
+
+.form-control{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.table{
+    margin-top: 50px;
+}
+.btn{
+    background-color:rgb(80 80 60);
+}
+
+.hidden__photo
+{
+   display: none;
+}
+
+.show
+{
+    display: block;
+}
+.hidden__page{
+    margin: 0 auto;
+}

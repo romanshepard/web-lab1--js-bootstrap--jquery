@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Переписанный код с использованием jQuery</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <input type="text" id="nameField" placeholder="Введите название книги">
+    <input type="text" id="check__box" placeholder="Введите автора">
+    <input type="text" id="date_athour" placeholder="Введите дату создания">
+    <button id="btn__check">Проверить</button>
+    <input type="date" id="start" placeholder="Дата создания">
+
+    <h1 class="page__title">Заголовок</h1>
+
+    <div class="hidden__photo" id="photo1">Фото 1</div>
+    <div class="hidden__photo" id="photo2">Фото 2</div>
+    <div class="hidden__photo" id="photo3">Фото 3</div>
+
+    <script>
+        $(document).ready(function() {
+            const page = $(".hidden__photo");
+
+            class DB {
+                constructor(name, bookname, createdyear, keyPhoto, has) {
+                    this.name = name;
+                    this.bookname = bookname;
+                    this.createdyear = createdyear;
+                    this.keyPhoto = keyPhoto;
+                    this.has = false;
+                }
+            }
+
+            const base = [
+                new DB("Александр Пушкин", "Мой талисман", "1888-07-03", 1),
+                new DB("Агата Кристи", "Убийство в Восточном экспрессе", "1988-12-02", 2),
+                new DB("Уильям Шекспир", "Гамлет", "1982-10-12", 3),
+            ];
+
+            const check = () => {
+                $.each(base, function(index, item) {
+                    if (item.name === $("#check__box").val() && item.bookname === $("#nameField").val() && item.createdyear === $("#date_athour").val()) {
+                        item.has = true;
+                    }
+                });
+
+                let count = 0;
+
+                $.each(base, function(index, item) {
+                    console.log(item.name, item.bookname, item.createdyear, item.has);
+                    if (item.has === true) {
+                        count += 1;
+                        alert("Такая книга существует!!");
+                        page.eq(index).addClass("show");
+                    }
+                });
+
+                if (count === 0) {
+                    alert("Нет такой книги или вы неправильно написали что-то!!!!!!!!!!");
+                }
+            };
+
+            $("#nameField").on("input", function() {
+                $(".page__title").text($("#nameField").val());
+            });
+
+            $("#start").on("input", function() {
+                $("#date_athour").val($("#start").val());
+            });
+
+            $("#btn__check").on("click", function() {
+                if ($("#date_athour").val() === "" || $("#nameField").val() === "") {
+                    alert("Введите название книги или дату создания");
+                    $("#date_athour").val("");
+                    $("#nameField").val("");
+                }
+
+                check();
+            });
+        });
+    </script>
+</body>
+</html>

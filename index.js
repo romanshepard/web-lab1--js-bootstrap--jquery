@@ -1,89 +1,104 @@
-/**
-const personalMoviesDB = {
-    count:  0,
-    movies: {},
-    geners: [],
-   privat: false
-};
 
-for(let i=0;i<1;i++)
-{
-    const numberOfFilms = prompt("How many movies do you see?","0");
-    const lastmovies = prompt("One of the last movies","Name of movie");
-    
-    if( lastmovies === true &&(lastmovies.length != 0 || lastmovies.length<=50 ))
-    {
-        personalMoviesDB.movies[0]=lastmovies;
-    }else 
-    {
-        alert("Введите правильно должно быть не ноль и не ботльше 50 символов")
+const photo1 =  document.querySelector("#photo1");
+const photo2 =  document.querySelector("#photo2");
+const photo3 =  document.querySelector("#photo3");
 
-        const numberOfFilms = prompt("How many movies do you see?","0");
-        const lastmovies = prompt("One of the last movies","Name of movie");
-        const rate = prompt("Give points rate 0 to 10","0");
+const nameField = document.querySelector("#nameField");
+const box = document.querySelector("#check__box");
+const date = document.querySelector("#date_athour");
+const btn = document.querySelector("#btn__check");
+
+const start = document.querySelector("#start");
+const title = document.querySelector(".page__title");
+
+const page = document.querySelectorAll(".hidden__photo");
+
+//console.log(page[1].classList.add("show"));
+
+class DB {
+    constructor(name, bookname, createdyear, keyPhoto,has) {
+        this.name = name;
+        this.bookname = bookname;
+        this.createdyear = createdyear;
+        this.keyPhoto = keyPhoto;
+        this.has = false;
     }
-    
-    
-    personalMoviesDB.count=numberOfFilms;
-    personalMoviesDB.movies[1]=rate;
-
-   
 }
 
-if(personalMoviesDB.count<10) 
-    alert("sefe")
-else if (personalMoviesDB.count>=10 && personalMoviesDB.count<=30)
-alert(1);
-//console.log(personalMoviesDB);
- */
+//бд
+const base = [
+    new DB("Александр Пушкин", "Мой талисман", "1888-07-03",1),
+    new DB("Агата Кристи", "Убийство в Восточном экспрессе", "1988-12-02", 2),
+    new DB("Уильям Шекспир", "Гамлет", "1982-10-12", 3),
+];
 
-var array = ['a','e','i','o','u'];
+const check = () =>
+{
+    //active block 
+    // alert
 
-function getCount(str) {
-    
-    let count=0;
-    for(let i=0;i<array.length;i++)
+    for(let i=0;i<base.length;i++)
     {
-        if(str.indexOf(array[i])!=-1)
+        if(base[i].name == box.value && base[i].bookname == nameField.value && base[i].createdyear == date.value)
         {
-            for(let j=0;j<str.length;j++){
-                if(str[j]==array[i]) count++;
-            }
+            base[i].has=true;
         }
     }
-    return count;
 
+    let count = 0;
     
-  }
-
-  const str ="abracadabraii";
-  console.log(getCount(str));
-
-  console.log(Math.round(2.3));
-
-  function getAverage(marks){
-
-       let sum=0;
-        for(let i=0;i<marks.length;i++)
-        {   
-            sum+=marks[i];
-        }
-        return Math.round(sum/marks.length);
-  }
-
-  var arr = [1,5,87,45,8,8];
-  console.log(getAverage(arr));
+    base.forEach(item=>{
+       console.log(item.name, item.bookname,item.createdyear,item.has);
+       if(item.has==true)
+       {
+        count+=1;
+         alert("Такая книга существует!!");
+            // temp[].classList.add("show");
 
 
-  var sex = [1,24,5,6,7,66,4,2,4];
- let mx1=0,mx2=0;
-  for(let i=0;i<sex.length;i++)
-  {
-        if(sex[i]>mx1)
-        {
-            mx2 = mx1;
-            mx1 = sex[i];
-        }
-        
-  }
-  console.log(mx1,mx2);
+            let trueindex;
+         for(let i = 0;i<base.length;i++)
+         {
+            if(base[i].has==true)
+            {
+                trueindex = i;
+                break;
+            }
+         }
+         console.log(trueindex);
+         page[trueindex].classList.add("show");
+       }
+
+
+
+       
+   });
+ 
+   //console.log(nameField.value, box.value,date.value);
+   
+    if(count == 0) alert("Нет такой кникиги или вы неправильно написали что-то!!!!!!!!!!");
+    
+};
+
+//динамический заголовок
+nameField.addEventListener("input",function(){
+    title.innerHTML= nameField.value;
+});
+
+//дата в инпут
+start.addEventListener("input",function(){
+    date.value = start.value;
+});
+
+//событие на кнопке
+btn.addEventListener("click",function(){
+    if(date.value ==="" || nameField.value==="")
+    {
+        alert("Введите название книги или дату создания");
+        date.value =""; 
+        nameField.value="";
+    }
+    
+    check();
+});
+
