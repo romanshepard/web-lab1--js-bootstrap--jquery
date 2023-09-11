@@ -40,13 +40,8 @@ $(document).ready(function() {
                     if(item.has ==true)
                     {
                         trueindex=index;
-                        //return false;
                     }
-                    //console.log(1);
-                    //page.eq(trueindex).addClass("show");
-                    
                 });
-               // console.log(page.eq(trueindex));
                 page.eq(index).addClass("show");
 
             }
